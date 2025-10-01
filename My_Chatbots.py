@@ -51,6 +51,7 @@ if prompt:  # 如果文本框有数据, 继续往下执行.
     # st.chat_message('user').markdown(prompt)
 
     # 如果没有API KEY, 直接返回提示.
+    st.write(api_key)
     if not api_key:
         st.warning('请输入Tongyi的API KEY!')
         st.stop()
@@ -66,4 +67,5 @@ if prompt:  # 如果文本框有数据, 继续往下执行.
     st.session_state['messages'].append({'role':'ai', 'content':content})
     # 11. 把AI的回复信息, 显示在主窗体中.
     st.chat_message('ai').markdown(content)
+
 
