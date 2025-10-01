@@ -6,7 +6,7 @@ from My_lls import get_response
 #2.设置侧边栏，用于输入api
 with st.sidebar:
     #.输入api
-    api_key = st.text_input('请输入Tongyi账号的API KEY',type='password')
+    api_key = "sk-d0bc8c552ccb4a11a26684bf949135aa"
     #.api获取链接，若不记得可点
     st.markdown("[获取Tongyi账号的API KEY](https://bailian.console.aliyun.com/?spm=5176.29597918.J_SEsSjsNv72yRuRFS2VknO.2.6a2e7b087b88Ea&tab=model#/api-key)")
 
@@ -53,4 +53,5 @@ if prompt:
     st.session_state['messages'].append({'role': 'ai', 'content': content})
     # 11. 把AI的回复信息, 显示在主窗体中.
     st.chat_message('ai').markdown(content)
+
 
