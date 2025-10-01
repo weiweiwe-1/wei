@@ -5,27 +5,10 @@ from langchain_community.llms import Tongyi             #lls（大模型语言�
 from langchain.chains import ConversationChain
 from langchain.prompts import ChatPromptTemplate
 
-def get_response(prompt,memory,api_key):
-    """
-    根据用户录入的提示词, 获取结果(响应体).
-    :param prompt: 用户输入的提示词
-    :param memory: 记忆体
-    :param api_key: API密钥
-    :return:
-    """
-    #3.创建模型对象
-    llm = Tongyi(model='qwen-max',dashscope_api_key=DASHSCOPE_API_KEY)
-    #4.创建chains链
-    chains = ConversationChain(llm=llm,memory=memory)
-    #5.发起请求，获取结果
-    response = chains.invoke({'input':prompt})
-    #6.response是记忆体，包括之前的会话，本次的会话包含在一个response的key中
-    return response['response']
-
 # 2. 设置做侧边栏
 with st.sidebar:
     # 显示文本
-    DASHSCOPE_API_KEY = st.text_input('请输入Tongyi账号的API KEY:', type='password')
+    api_key = st.text_input('请输入Tongyi账号的API KEY:', type='password')
     st.markdown("[获取Tongyi账号的API KEY](https://bailian.console.aliyun.com/?spm=5176.29597918.J_SEsSjsNv72yRuRFS2VknO.2.6a2e7b087b88Ea&tab=model#/api-key)")
 
 # 3. 主界面主标题
@@ -68,4 +51,20 @@ if prompt:  # 如果文本框有数据, 继续往下执行.
     # 11. 把AI的回复信息, 显示在主窗体中.
     st.chat_message('ai').markdown(content)
 
+def get_response(prompt,memory,api_key):
+    """
+    根据用户录入的提示词, 获取结果(响应体).
+    :param prompt: 用户输入的提示词
+    :param memory: 记忆体
+    :param api_key: API密钥
+    :return:
+    """
+    #3.创建模型对象
+    llm = Tongyi(model='qwen-max',dashscope_api_key=api_key)
+    #4.创建chains链
+    chains = ConversationChain(llm=llm,memory=memory)
+    #5.发起请求，获取结果
+    response = chains.invoke({'input':prompt})
+    #6.response是记忆体，包括之前的会话，本次的会话包含在一个response的key中
+    return response['response']
 
