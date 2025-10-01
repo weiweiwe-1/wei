@@ -29,19 +29,6 @@ for message in st.session_state.messages:
 # 6. 创建1个聊天窗口
 prompt = st.chat_input("请输入您要咨询的问题:")
 
-if prompt:  # 如果文本框有数据, 继续往下执行.
-    # 7. 显示消息体, 并且设置消息类型为user
-    # st.chat_message('user').markdown(prompt)
-
-    # 如果没有API KEY, 直接返回提示.
-    st.write(api_key)
-    if not api_key:
-        st.warning('请输入Tongyi的API KEY!')
-        st.stop()
-    # 8. 走到这里, 代表: 1. 有API KEY; 2. 有输入文本. 把用户信息显示在主窗体
-    st.session_state['messages'].append({'role':'human', 'content':prompt})
-    st.chat_message('human').markdown(prompt)
-
 def get_response(prompt,memory,api_key):
     """
     根据用户录入的提示词, 获取结果(响应体).
@@ -59,6 +46,18 @@ def get_response(prompt,memory,api_key):
     #6.response是记忆体，包括之前的会话，本次的会话包含在一个response的key中
     return response['response']
 
+if prompt:  # 如果文本框有数据, 继续往下执行.
+    # 7. 显示消息体, 并且设置消息类型为user
+    # st.chat_message('user').markdown(prompt)
+
+    # 如果没有API KEY, 直接返回提示.
+    st.write(api_key)
+    if not api_key:
+        st.warning('请输入Tongyi的API KEY!')
+        st.stop()
+    # 8. 走到这里, 代表: 1. 有API KEY; 2. 有输入文本. 把用户信息显示在主窗体
+    st.session_state['messages'].append({'role':'human', 'content':prompt})
+    st.chat_message('human').markdown(prompt)
     
     # 9. 向utils工具类发起请求, 返回响应.
     # 显示一个等待框.
@@ -69,6 +68,7 @@ def get_response(prompt,memory,api_key):
     st.session_state['messages'].append({'role':'ai', 'content':content})
     # 11. 把AI的回复信息, 显示在主窗体中.
     st.chat_message('ai').markdown(content)
+
 
 
 
