@@ -41,15 +41,6 @@ if prompt:  # 如果文本框有数据, 继续往下执行.
     # 8. 走到这里, 代表: 1. 有API KEY; 2. 有输入文本. 把用户信息显示在主窗体
     st.session_state['messages'].append({'role':'human', 'content':prompt})
     st.chat_message('human').markdown(prompt)
-    # 9. 向utils工具类发起请求, 返回响应.
-    # 显示一个等待框.
-    with st.spinner('AI小助手正在思考中...'):
-        content = get_response(prompt, st.session_state['memory'], api_key)
-
-    # 10. 把AI的回复信息, 添加到会话记录中.
-    st.session_state['messages'].append({'role':'ai', 'content':content})
-    # 11. 把AI的回复信息, 显示在主窗体中.
-    st.chat_message('ai').markdown(content)
 
 def get_response(prompt,memory,api_key):
     """
@@ -67,4 +58,17 @@ def get_response(prompt,memory,api_key):
     response = chains.invoke({'input':prompt})
     #6.response是记忆体，包括之前的会话，本次的会话包含在一个response的key中
     return response['response']
+
+    
+    # 9. 向utils工具类发起请求, 返回响应.
+    # 显示一个等待框.
+    with st.spinner('AI小助手正在思考中...'):
+        content = get_response(prompt, st.session_state['memory'], api_key)
+
+    # 10. 把AI的回复信息, 添加到会话记录中.
+    st.session_state['messages'].append({'role':'ai', 'content':content})
+    # 11. 把AI的回复信息, 显示在主窗体中.
+    st.chat_message('ai').markdown(content)
+
+
 
