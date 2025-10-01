@@ -12,7 +12,6 @@ with st.sidebar:
 
 #3.主页面标题
 st.title('李子涵聊天机器人')
-st.logo("C:\Python Learning\Study\Chapter 1 Fundamentals of Python\A8_Streamlit_LangChain\My_Gpt\zz.png")
 #4.会话保持，存储会话记录
 if 'memory' not in st.session_state:
     #能进入说明第一次访问
@@ -54,3 +53,4 @@ if prompt:
     st.session_state['messages'].append({'role': 'ai', 'content': content})
     # 11. 把AI的回复信息, 显示在主窗体中.
     st.chat_message('ai').markdown(content)
+
