@@ -6,7 +6,7 @@ from langchain.chains import ConversationChain
 from langchain.prompts import ChatPromptTemplate
 import dashscope
 
-dashscope.api_key = "sk-d0bc8c552ccb4a11a26684bf949135aa"
+
 
 # 2. 设置做侧边栏
 with st.sidebar:
@@ -70,6 +70,7 @@ if prompt:  # 如果文本框有数据, 继续往下执行.
     st.session_state['messages'].append({'role':'ai', 'content':content})
     # 11. 把AI的回复信息, 显示在主窗体中.
     st.chat_message('ai').markdown(content)
+
 
 
 
